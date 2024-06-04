@@ -1,6 +1,14 @@
-import { Container, Text, VStack, Heading, Box, Image, Flex, Badge } from "@chakra-ui/react";
+import { useState } from "react";
+import { Container, Text, VStack, Heading, Box, Image, Flex, Badge, HStack, IconButton } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 
 const Index = () => {
+  const [rating, setRating] = useState(0);
+
+  const handleRating = (rate) => {
+    setRating(rate);
+  };
+
   return (
     <Container centerContent maxW="container.md" py={10}>
       <VStack spacing={6}>
@@ -34,6 +42,18 @@ const Index = () => {
             <Text mt={2}>
               This is a brief description of the movie. It's an exciting tale of adventure and heroism.
             </Text>
+            <HStack spacing={1} mt={4}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <IconButton
+                  key={star}
+                  icon={<StarIcon />}
+                  colorScheme={star <= rating ? "yellow" : "gray"}
+                  variant="ghost"
+                  onClick={() => handleRating(star)}
+                  aria-label={`Rate ${star} stars`}
+                />
+              ))}
+            </HStack>
           </Box>
         </Box>
       </VStack>
